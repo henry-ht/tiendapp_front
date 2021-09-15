@@ -1,5 +1,5 @@
-import { environment } from './../../environments/environment';
-import { StorageService } from './../services/storage.service';
+import { environment } from '../../../environments/environment';
+import { StorageService } from '../core/services/storage.service';
 import { Injectable } from '@angular/core';
 import {
   HttpRequest,

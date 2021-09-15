@@ -27,7 +27,7 @@ export class ResponseInterceptor implements HttpInterceptor {
   private modifyBody(body:any) {
     let msg = '';
 
-    
+
     switch (body['status']) {
       case 'error':
         setTimeout(() => {

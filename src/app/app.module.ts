@@ -1,22 +1,26 @@
+import { ViewModule } from './views/view.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppLayoutComponent
   ],
   imports: [
+    ViewModule,
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
-    NgbModule,
-    FontAwesomeModule
+    HttpClientModule
+  ],
+  exports:[
+    BrowserModule,
+    CommonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

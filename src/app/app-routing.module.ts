@@ -1,6 +1,6 @@
 import { BrandComponent } from './views/brand/brand.component';
 import { ProductComponent } from './views/product/product.component';
-import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
+import { AppLayoutComponent } from './views/shared/app-layout/app-layout.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -14,7 +14,6 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: AppLayoutComponent,
     loadChildren: () => import('./views/view.module').then(i => i.ViewModule),
   },
   {

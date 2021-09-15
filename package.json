@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -28,7 +28,9 @@
     "angular-notifier": "^9.1.0",
     "bootstrap": "^4.5.0",
     "dayjs": "^1.10.7",
+    "ngx-pagination": "^5.1.1",
     "rxjs": "~6.6.0",
+    "sweetalert2": "^11.1.5",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.4"
   },

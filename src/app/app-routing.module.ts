@@ -1,7 +1,28 @@
+import { BrandComponent } from './views/brand/brand.component';
+import { ProductComponent } from './views/product/product.component';
+import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+const MAIN = '/product';
+
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: MAIN,
+    pathMatch: 'full'
+  },
+  {
+    path: '',
+    component: AppLayoutComponent,
+    loadChildren: () => import('./views/view.module').then(i => i.ViewModule),
+  },
+  {
+    path: '**',
+    redirectTo: MAIN,
+    pathMatch: 'full'
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

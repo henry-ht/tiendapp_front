@@ -4,21 +4,31 @@
       Products
     </h1>
   </div>
-  <div class="col-md-12">
+  <div class="col-md-12 text-right">
+    <button class="btn btn-primary" [disabled]="loadPage" (click)="open(content)"  >
+      <fa-icon [icon]="faPlus"></fa-icon>
+    </button>
+  </div>
+  <div class="col-md-12 pt-3">
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">name</th>
-            <th scope="col-1">description</th>
-            <th scope="col">size</th>
-            <th scope="col">existence</th>
-            <th scope="col">boarding</th>
-            <th scope="col">options</th>
+            <th scope="col">Name</th>
+            <th scope="col-1">Description</th>
+            <th scope="col">Size</th>
+            <th scope="col">Existence</th>
+            <th scope="col">Boarding</th>
+            <th scope="col">Options</th>
           </tr>
         </thead>
         <tbody>
+          <tr *ngIf="!products.data" >
+            <td colspan="7">
+              <img src="assets/img/load/arrow.gif" alt="icono de carga" class="animated_animated animated_fadeIn img-fluid icon-load-max mx-auto d-block" >
+            </td>
+          </tr>
           <tr *ngFor="let item of products.data | paginate: { itemsPerPage: products.per_page, currentPage: page, totalItems: products.total}; let i = index" >
             <th scope="row">
               {{item.id}}
@@ -44,11 +54,14 @@
             </td>
             <td>
               <div class="btn-group">
-                <button class="btn btn-sm btn-success">
-                  <fa-icon *ngIf="!loadPage" [icon]="faEdit"></fa-icon>
+                <button class="btn btn-sm btn-success" *ngIf="!loadPage" [disabled]="loadPage" (click)="open(content)" >
+                  <fa-icon [icon]="faEdit"></fa-icon>
                 </button>
-                <button class="btn btn-sm btn-danger">
-                  <fa-icon *ngIf="!loadPage" [icon]="faTrash"></fa-icon>
+                <button class="btn btn-sm btn-danger" (click)="delete(item.id, item.name)" *ngIf="!loadPage" [disabled]="loadPage"  >
+                  <fa-icon [icon]="faTrash"></fa-icon>
+                </button>
+                <button class="btn btn-sm btn-ligth" *ngIf="loadPage" [disabled]="loadPage"  >
+                  <img src="assets/img/load/arrow.gif" alt="icono de carga" class="animated_animated animated_fadeIn img-fluid icon-load-mini" >
                 </button>
               </div>
             </td>
@@ -62,4 +75,27 @@
   </div>
 </section>
 
-
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="dateOfBirth">Date of birth</label>
+        <div class="input-group">
+          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>

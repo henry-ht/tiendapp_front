@@ -1,7 +1,7 @@
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit } from '@angular/core';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
-import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faBan, faCheck, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { RequestsService } from 'src/app/core/services/request.service';
 import Swal from 'sweetalert2';
 
@@ -16,6 +16,8 @@ export class BrandComponent implements OnInit {
   faEdit = faEdit;
   faTrash = faTrash;
   faPlus = faPlus;
+  faBan = faBan;
+  faCheck = faCheck;
   page: number = 1;
   loadPage:boolean = false;
   closeResult = '';
@@ -81,7 +83,18 @@ export class BrandComponent implements OnInit {
         Swal.fire('Changes are not saved', '', 'info');
         this.loadPage = false;
       }
-    })
+    });
+  }
+
+  disabled(id:number, status:boolean){
+    this.loadPage = true;
+    this.http.put("brand/"+id, {disabled: (status ? 0:1) })
+    .subscribe((data:any)=>{
+      if(data.status == "success"){
+        this.getBrands();
+      }
+      this.loadPage = false;
+    });
   }
 
 }

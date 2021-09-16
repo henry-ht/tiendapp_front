@@ -45,8 +45,12 @@
                 <button class="btn btn-sm btn-success" *ngIf="!loadPage" [disabled]="loadPage" (click)="open(content)"  >
                   <fa-icon [icon]="faEdit"></fa-icon>
                 </button>
-                <button class="btn btn-sm btn-danger" (click)="delete(item.id, item.name)" *ngIf="!loadPage" [disabled]="loadPage"  >
+                <button class="btn btn-sm btn-danger" (click)="delete(item.id, item.name)"  [disabled]="loadPage"  >
                   <fa-icon [icon]="faTrash"></fa-icon>
+                </button>
+                <button class="btn btn-sm btn-info" (click)="disabled(item.id, item.disabled)" [disabled]="loadPage"  >
+                  <fa-icon [icon]="faBan" *ngIf="!item.disabled" ></fa-icon>
+                  <fa-icon [icon]="faCheck" *ngIf="item.disabled" ></fa-icon>
                 </button>
                 <button class="btn btn-sm btn-ligth" *ngIf="loadPage" [disabled]="loadPage"  >
                   <img src="assets/img/load/arrow.gif" alt="icono de carga" class="animated_animated animated_fadeIn img-fluid icon-load-mini" >

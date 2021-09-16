@@ -2,7 +2,7 @@
 import { RequestsService } from '../../core/services/request.service';
 import { Component, OnInit } from '@angular/core';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
-import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faBan, faCheck, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -15,6 +15,8 @@ export class ProductComponent implements OnInit {
 
   faEdit = faEdit;
   faTrash = faTrash;
+  faBan = faBan;
+  faCheck = faCheck;
   products:any = [];
   page: number = 1;
   loadPage:boolean = false;
@@ -85,6 +87,17 @@ export class ProductComponent implements OnInit {
         this.loadPage = false;
       }
     })
+  }
+
+  disabled(id:number, status:boolean){
+    this.loadPage = true;
+    this.http.put("product/"+id, {disabled: (status ? 0:1) })
+    .subscribe((data:any)=>{
+      if(data.status == "success"){
+        this.getProduts();
+      }
+      this.loadPage = false;
+    });
   }
 
 }

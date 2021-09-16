@@ -71,10 +71,17 @@ export class ProductComponent implements OnInit {
       }
 
       if (result.isConfirmed) {
-        Swal.fire('Saved!', '', 'success');
-        this.loadPage = false;
+        this.http.delete("product/"+id)
+        .subscribe((data:any)=>{
+          if(data.status == "success"){
+            this.getProduts();
+            Swal.fire('Producto eliminado', '', 'success');
+          }
+          this.loadPage = false;
+        });
+
       } else if (result.isDenied) {
-        Swal.fire('Changes are not saved', '', 'info');
+        Swal.fire('Acción no realizada', '', 'info');
         this.loadPage = false;
       }
     })

@@ -4,7 +4,7 @@
 <section class="row mt-5">
   <div class="col-md-3 mb-3">
     <div class="input-group">
-      <input class="form-control" type="search" [(ngModel)]="textSearch" placeholder="Search"  aria-label="Search">
+      <input class="form-control" type="search" [(ngModel)]="textSearch" placeholder="filter by name"  aria-label="Search">
       <div class="input-group-append">
         <button class="btn btn-info" (click)="orderBy = !orderBy">
           {{orderBy ? 'ASC':'DES'}} <fa-icon class="ml-1" [icon]="faSort"></fa-icon>

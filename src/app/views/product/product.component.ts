@@ -79,6 +79,7 @@ export class ProductComponent implements OnInit {
   }
 
   private getDismissReason(reason: any): string {
+    this.clearForm();
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {

@@ -1,14 +1,25 @@
-<section class="row">
-  <div class="col-md-12">
-    <h1 class="h2">
-      Brands
-    </h1>
+<h1 class="h2">
+  Brands
+</h1>
+<section class="row mt-5">
+  <div class="col-md-3 mb-3">
+    <div class="input-group">
+      <input class="form-control" type="search" [(ngModel)]="textSearch" placeholder="Search"  aria-label="Search">
+      <div class="input-group-append">
+        <button class="btn btn-info" (click)="orderBy = !orderBy">
+          {{orderBy ? 'ASC':'DES'}} <fa-icon class="ml-1" [icon]="faSort"></fa-icon>
+        </button>
+      </div>
+    </div>
   </div>
-  <div class="col-md-12 text-right">
+  <div class="col-md-9 text-right mb-3">
     <button class="btn btn-primary" [disabled]="loadPage" (click)="open(content)"  >
       <fa-icon [icon]="faPlus"></fa-icon>
     </button>
   </div>
+</section>
+
+<section class="row">
   <div class="col-md-12 pt-3">
     <div class="table-responsive">
       <table class="table table-striped">
@@ -16,8 +27,9 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">Name</th>
-            <th scope="col-1">Description</th>
-            <th scope="col-1">products assigned</th>
+            <th scope="col">Reference</th>
+            <th scope="col w-25">Description</th>
+            <th scope="col">products assigned</th>
             <th scope="col">Options</th>
           </tr>
         </thead>
@@ -27,12 +39,15 @@
               <img src="assets/img/load/arrow.gif" alt="icono de carga" class="animated_animated animated_fadeIn img-fluid icon-load-max mx-auto d-block" >
             </td>
           </tr>
-          <tr *ngFor="let item of brands.data | paginate: { itemsPerPage: brands.per_page, currentPage: page, totalItems: brands.total}; let i = index" >
+          <tr *ngFor="let item of brands.data | paginate: { itemsPerPage: brands.per_page, currentPage: page, totalItems: brands.total} | search:'name':textSearch | orderBy:'id':orderBy; let i = index" >
             <th scope="row">
               {{item.id}}
             </th>
             <td>
               {{item.name}}
+            </td>
+            <td>
+              {{item.reference}}
             </td>
             <td [title]=item.description >
               {{item.description}}
@@ -42,7 +57,7 @@
             </td>
             <td>
               <div class="btn-group">
-                <button class="btn btn-sm btn-success" *ngIf="!loadPage" [disabled]="loadPage" (click)="open(content)"  >
+                <button class="btn btn-sm btn-success"  *ngIf="!loadPage" [disabled]="loadPage" (click)="addToEdit(item);open(content)"  >
                   <fa-icon [icon]="faEdit"></fa-icon>
                 </button>
                 <button class="btn btn-sm btn-danger" (click)="delete(item.id, item.name)"  [disabled]="loadPage"  >
@@ -69,25 +84,46 @@
 
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <h4 class="modal-title" id="modal-basic-title">
+      Create / Edit Brand
+    </h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <form>
+    <form (ngSubmit)="onSubmit()" [formGroup]="brandForm" name="brandForm" >
       <div class="form-group">
-        <label for="dateOfBirth">Date of birth</label>
-        <div class="input-group">
-          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
-          </div>
-        </div>
+        <label for="name">Name</label>
+        <input type="text" [ngClass]="{ 'is-invalid': isValid().name.dirty && isValid().name.errors }" class="form-control" id="name" formControlName="name" [readonly]="loadPage"  >
+        <small *ngIf="isValid().name.errors && isValid().name.dirty" class="form-text text-muted">
+            Name is required
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="reference">Reference</label>
+        <input type="text" [ngClass]="{ 'is-invalid': isValid().reference.dirty && isValid().reference.errors }" class="form-control" id="reference" formControlName="reference" [readonly]="loadPage"  >
+        <small *ngIf="isValid().reference.errors && isValid().reference.dirty" class="form-text text-muted">
+          Reference is required
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea [ngClass]="{ 'is-invalid': isValid().description.dirty && isValid().description.errors }" class="form-control" id="description" formControlName="description" [readonly]="loadPage" ></textarea>
+        <small *ngIf="isValid().description.errors && isValid().description.dirty" class="form-text text-muted">
+          Description is required
+        </small>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-info" (click)="modal.close('Save click');clearForm()">
+          Cancel
+        </button>
+        <button type="submit" class="btn btn-outline-dark" [disabled]="brandForm.invalid || loadPage" >
+          Save
+        </button>
       </div>
     </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
   </div>
 </ng-template>

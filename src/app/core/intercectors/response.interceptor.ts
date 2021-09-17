@@ -27,7 +27,6 @@ export class ResponseInterceptor implements HttpInterceptor {
   private modifyBody(body:any) {
     let msg = '';
 
-
     switch (body['status']) {
       case 'error':
         setTimeout(() => {
@@ -36,9 +35,17 @@ export class ResponseInterceptor implements HttpInterceptor {
         break;
 
       case 'warning':
-        setTimeout(() => {
-          this.noti.error('Servidor no encontrado');
-        }, 500);
+        for (const key in body['message']) {
+          if (Object.prototype.hasOwnProperty.call(body['message'], key)) {
+            const element = body['message'][key];
+            for (const key_2 in element) {
+              if (Object.prototype.hasOwnProperty.call(element, key_2)) {
+                const element_2 = element[key_2];
+                this.noti.error(element_2);
+              }
+            }
+          }
+        }
         break;
     }
 

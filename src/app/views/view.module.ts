@@ -11,6 +11,8 @@ import { NavBarComponent } from './shared/nav-bar/nav-bar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CoreModule } from '../core/core.module';
+import { NotifierModule } from 'angular-notifier';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,11 +28,24 @@ import { CoreModule } from '../core/core.module';
     NgbModule,
     NgxPaginationModule,
     CoreModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NotifierModule.withConfig({
+      position: {
+        horizontal: {
+          position: 'right',
+          distance: 12
+        },
+      }
+    }),
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [
     CoreModule,
     FontAwesomeModule,
+    NotifierModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class ViewModule { }

@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
     BrowserModule,
     CommonModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   exports:[
     BrowserModule,

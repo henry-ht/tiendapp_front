@@ -26,6 +26,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "angular-notifier": "^9.1.0",
+    "angular-web-storage": "^12.0.0",
     "bootstrap": "^4.5.0",
     "dayjs": "^1.10.7",
     "ngx-pagination": "^5.1.1",

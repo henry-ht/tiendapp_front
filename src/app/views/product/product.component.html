@@ -51,7 +51,7 @@
               {{item.brand.name}}
             </td>
             <td [title]=item.description >
-              {{(item.description | slice:0:27)+(item.description.length >= 27 ? '...':'')  }}
+                {{item.description}}
             </td>
             <td>
               {{item.size}}
@@ -70,7 +70,7 @@
                 <button class="btn btn-sm btn-danger" (click)="delete(item.id, item.name)" *ngIf="!loadPage" [disabled]="loadPage"  >
                   <fa-icon [icon]="faTrash"></fa-icon>
                 </button>
-                <button class="btn btn-sm btn-info" (click)="disabled(item.id, item.disabled)" [disabled]="loadPage"  >
+                <button class="btn btn-sm btn-info" title="{{item.disabled ? 'Enable':'Disable'}}" (click)="disabled(item.id, item.disabled)" [disabled]="loadPage"  >
                   <fa-icon [icon]="faBan" *ngIf="!item.disabled" ></fa-icon>
                   <fa-icon [icon]="faCheck" *ngIf="item.disabled" ></fa-icon>
                 </button>
